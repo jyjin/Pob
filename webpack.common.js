@@ -1,31 +1,27 @@
+
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: {
-        app: './src/index.js',
+        app: './client/index.js',
     },
-    devtool: 'inline-source-map',
     devServer: {
         contentBase: './dist',
-        hot: true
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
-            title: '测试webpack页面标题'
-        }),
-        new webpack.HotModuleReplacementPlugin()
+            template: "./public/index.html",
+            filename: "./index.html"
+        })
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
         publicPath: '/'
     },
-    mode: 'development',
-    // mode: 'production',
     module: {
         rules: [{                                   // css loader
             test: /\.css$/,
@@ -52,6 +48,17 @@ module.exports = {
             test: /\.xml$/,
             use: [
                 'xml-loader'
+            ]
+        }, {                                         // babel loader
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader'
+        }, {                                         // html loader
+            test: /\.html$/,
+            use: [
+                {
+                    loader: "html-loader"
+                }
             ]
         }]
     }
