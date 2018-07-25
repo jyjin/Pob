@@ -1,8 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import withRoot from './withRoot';
-import Home from './page/home'
+import { Router, BrowserRouter, Link } from 'react-router-dom'
 
-const App = withRoot(Home)
+import createBrowserHistory from 'history/createBrowserHistory';
+const history = createBrowserHistory()
+import withRoot from './withRoot'
+import App from './page/app'
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+ReactDOM.render(
+    <Router history={history}>
+        {/* {withRoot(<App history={history}/>)} */}
+        <App history={history}/>
+    </Router>
+    ,
+    document.querySelector('#root')
+);

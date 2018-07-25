@@ -9,6 +9,7 @@ module.exports = {
     },
     devServer: {
         contentBase: './dist',
+        historyApiFallback: true, // 页面刷新
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),

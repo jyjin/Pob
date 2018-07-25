@@ -1,20 +1,22 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+/**
+ * In this file, we create a React component
+ * which incorporates components provided by Material-UI.
+ */
+import React, { Component } from 'react';
+import { Route } from 'react-router-dom'
+import welcome from './welcome'
+import newsContainer from './news/newsContainer'
+import newsContainer1 from './news/newsContainer.1'
+import newsContainer2 from './news/newsContainer.2'
 
-import Welcome from './welcome'
-import NewsFeed from './news/newsContainer'
-import NewsFeed1 from './news/newsContainer.1'
-import NewsFeed2 from './news/newsContainer.2'
+export default (
+    <div>
+        <Route exact path='/' component={welcome} />
+        <Route path='/a' render={()=>{return <div>hello a</div>}} />
+        <Route path='/welcome' component={welcome} />
+        <Route path='/news' component={newsContainer} />
+        <Route path='/news1' component={newsContainer1} />
+        <Route path='/news2' component={newsContainer2} />
+    </div>
+)
 
-export default class RouterConfig extends React.Component {
-    render() {
-      return <Router>
-        <div>
-        <Route path="/" component={Welcome} />
-            <Route path="/news" component={NewsFeed} />
-            <Route path="/news1" component={NewsFeed1} />
-            <Route path="/news2" component={NewsFeed2} />
-        </div>
-      </Router>
-    }
-  }

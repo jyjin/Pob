@@ -1,6 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Redirect } from 'react-router'
+/**
+ * In this file, we create a React component
+ * which incorporates components provided by Material-UI.
+ */
+
+import React, { Component, Children } from 'react';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -13,7 +17,7 @@ import Icon from '@material-ui/core/Icon';
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import Route from './routes'
+import Routes from './routes'
 
 const styles = {
     root: {
@@ -28,12 +32,12 @@ const styles = {
     },
 };
 
+export default class App extends Component {
+    constructor(props, context) {
+        super(props, context);
 
-export default class Home extends React.Component {
-    constructor(props) {
-        super(props)
         this.state = {
-            open: false,
+            value: 'welcome'
         };
     }
 
@@ -50,44 +54,38 @@ export default class Home extends React.Component {
     }
 
     handleChange(event, value) {
-        this.setState({ value: value, redirect: true });
+        this.setState({ value });
+        this.props.history.push(value, { fromDashboard: true })
     };
 
 
     bottomNavigation() {
-
         const { value } = this.state || 'recents';
 
-        if (this.state.redirect) {
-            return <Redirect to={value} />;
-        }
-
         return (
-            <BottomNavigation value={value} onChange={this.handleChange.bind(this)}>
-                <BottomNavigationAction label="Recents" value="/welcome" icon={<RestoreIcon />} />
-                <BottomNavigationAction label="Favorites" value="/news" icon={<FavoriteIcon />} />
-                <BottomNavigationAction label="Nearby" value="/news1" icon={<LocationOnIcon />} />
-                <BottomNavigationAction label="Folder" value="/news2" icon={<Icon>folder</Icon>} />
+            <BottomNavigation
+                value={value} onChange={this.handleChange.bind(this)}>
+                <BottomNavigationAction label="welcome" value="/welcome" icon={<RestoreIcon />} />
+                <BottomNavigationAction label="news" value="/news" icon={<FavoriteIcon />} />
+                <BottomNavigationAction label="news1" value="/news1" icon={<LocationOnIcon />} />
+                <BottomNavigationAction label="a" value="/a" icon={<Icon>folder</Icon>} />
             </BottomNavigation>
         );
     }
 
     main() {
         return <div style={{ height: 'calc( 100vh - 64px - 56px )' }}>
-            <Route {...this.props} />
+                {Routes}
         </div>
     }
 
     render() {
         const { open } = this.state;
-
-        return (
-            <div >
-                {this.appBar()}
-                {this.main()}
-                {this.bottomNavigation()}
-            </div>
-        );
+        const child = <div >
+            {this.appBar()}
+            {this.main()}
+            {this.bottomNavigation()}
+        </div>
+        return child
     }
 }
-
