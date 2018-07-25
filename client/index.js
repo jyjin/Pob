@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './app';
+import withRoot from './withRoot';
+import Home from './page/home'
+
+const App = withRoot(Home)
 
 ReactDOM.render(<App />, document.querySelector('#root'));
