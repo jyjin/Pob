@@ -63,24 +63,23 @@ export default class App extends Component {
         const { value } = this.state || '/welcome';
 
         return (
-            <BottomNavigation
-                value={value} onChange={this.handleChange.bind(this)}>
+            <BottomNavigation value={value} onChange={this.handleChange.bind(this)}>
                 <BottomNavigationAction label="welcome" value="/welcome" icon={<RestoreIcon />} />
                 <BottomNavigationAction label="news" value="/news" icon={<FavoriteIcon />} />
                 <BottomNavigationAction label="news1" value="/news1" icon={<LocationOnIcon />} />
-                <BottomNavigationAction label="a" value="/a" icon={<Icon>folder</Icon>} />
+                <BottomNavigationAction label="render" value="/render" icon={<Icon>folder</Icon>} />
             </BottomNavigation>
         );
     }
 
     main() {
         return <div style={{ height: 'calc( 100vh - 64px - 56px )' }}>
-            {Routes}
+            {/* {Routes} */}
+            <Routes local={'zh-cn'}/>
         </div>
     }
 
     render() {
-        const { open } = this.state;
         const child = <div >
             {this.appBar()}
             {this.main()}

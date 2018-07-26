@@ -9,7 +9,7 @@ module.exports = {
     },
     devServer: {
         contentBase: './dist',
-        historyApiFallback: true, // 页面刷新
+        historyApiFallback: true, // location改变有hashchange效果 不是get requrest
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),

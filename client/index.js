@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, BrowserRouter, Link } from 'react-router-dom'
 import createBrowserHistory from 'history/createBrowserHistory';
-import withRoot from './withRoot'
-import app from './page/app'
+import withRoot from './page/withRoot'
+import app from './app'
 
 const history = createBrowserHistory()
 const App = withRoot(app)
