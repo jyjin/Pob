@@ -60,7 +60,7 @@ export default class App extends Component {
 
 
     bottomNavigation() {
-        const { value } = this.state || 'recents';
+        const { value } = this.state || '/welcome';
 
         return (
             <BottomNavigation
@@ -75,7 +75,7 @@ export default class App extends Component {
 
     main() {
         return <div style={{ height: 'calc( 100vh - 64px - 56px )' }}>
-                {Routes}
+            {Routes}
         </div>
     }
 
