@@ -1,6 +1,11 @@
 /**
- * In this file, we create a React component
- * which incorporates components provided by Material-UI.
+ * app.js
+ * 
+ * author:  jyjin
+ * date  :   create at 2018.07.25
+ * remark:
+ *          In this file, we create a layout component
+ *          which incorporates components provided by Material-UI.
  */
 
 import React, { Component, Children } from 'react';
@@ -18,6 +23,8 @@ import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Routes from './routes'
+
+import LoginContainer from './page/login/loginContainer'
 
 const styles = {
     root: {
@@ -80,6 +87,12 @@ export default class App extends Component {
     }
 
     render() {
+
+        if(!this.state.user){
+            // return <LoginContainer/>
+        }
+
+
         const child = <div >
             {this.appBar()}
             {this.main()}
