@@ -3,12 +3,11 @@
  * create by jyjin 
  * create at 2018.07.25
  */
-
-const port = '5001'
+const { port } = require('./config')
 const http = require('http')
 const app = require('./app')
 
-app.set('port', port) 
+app.set('port', port)
 
 const server = http.createServer(app)
 server.listen(port)
