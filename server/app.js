@@ -9,8 +9,8 @@ const bodyParser = require('body-parser')
 const serverRoutes = require('./routes')
 const app = express();
 const { handlebarsEngine } = require('./middleware/templateEngines')
+const { isLinux } = require('./lib/util')
 
-const isLinux = process.platform.toLowerCase() == 'linux'
 const __viewsPath = isLinux ?
     __dirname.replace('/server', '/view') :
     __dirname.replace('\\server', '\\view')

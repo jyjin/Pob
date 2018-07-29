@@ -9,7 +9,7 @@
 global.__verbose = console.log
 global.__debug = console.error
 
-const isLinux = process.platform.toLowerCase() == 'linux'
+const { isLinux } = require('../../lib/util')
 const __viewPath = isLinux ?
     __dirname.replace('/server/controller/test', '/view') :
     __dirname.replace('\\server\\controller\\test', '\\view')
@@ -57,10 +57,10 @@ module.exports = (app) => {
         return res.redirect('/')
     })
 
-    app.use('/', (req, res) => {
-        return res.render('server-test', {
-            title: 'Default page',
-            welcome: 'Please checkout your api, it looks like no specify api url after host url.'
-        })
-    })
+    // app.use('/', (req, res) => {
+    //     return res.render('server-test', {
+    //         title: 'Default page',
+    //         welcome: 'Please checkout your api, it looks like no specify api url after host url.'
+    //     })
+    // })
 }
