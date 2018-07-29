@@ -8,13 +8,7 @@ const getToken = (data) => {
 }
 
 module.exports = (app) => {
-
-    app.get('/jwt', jwtAuth, (req, res) => {
-        console.log('req.user === ', req.user)
-        res.sendStatus(200);
-    });
-
-    app.get('/getToken', (req, res) => {
+    app.use('/getToken', (req, res) => {
         var data = {
             userId: '0001',
             username: 'jyjin'
@@ -27,7 +21,15 @@ module.exports = (app) => {
         })
     })
 
+    app.use('/jwt', jwtAuth, (req, res) => {
+        console.log('req.user === ', req.user)
+        res.send({
+            res: 1,
+            data: {
+                message: 'token 认证成功！'
+            }
+        })
+    });
 
     app.use('/user/getUserInfo', user.getUserInfo)
-
 }
