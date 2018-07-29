@@ -15,5 +15,6 @@ module.exports = {
    'JSS_0006': 'Get data failed',
 
    // Authentication tip
-   'JSS_AUTH_0001': 'token认证失败了',
+   'JSS_AUTH_0001': 'token verification error',
+   'JSS_AUTH_0002': 'token expired',
 }

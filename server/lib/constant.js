@@ -8,7 +8,6 @@
 
 const i18n = require('../i18n')
 const _RES = (res = -1, errorCode) => {
-    __verbose(' ======== i18n.cn', i18n('cn')['JSS_AUTH_0001'])
     return {
         res,
         errorCode,
@@ -30,9 +29,7 @@ const CONSTANT = {
 
     // Auth tip
     AUTH_TOKEN_ERROR: _RES(-1, 'JSS_AUTH_0001'),
-    XXX: 123
+    AUTH_TOKEN_EXPIRED: _RES(-1, 'JSS_AUTH_0002'),
 }
 
-__verbose('9999 ', CONSTANT)
-
-module.export = CONSTANT
+module.exports = CONSTANT

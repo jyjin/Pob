@@ -16,6 +16,8 @@ module.exports = {
 
    // 认证提示
    'JSS_AUTH_0001': 'token认证失败了',
+   'JSS_AUTH_0002': 'token已失效',
+   'JSS_': '',
    'JSS_': '',
    'JSS_': '',
    'JSS_': '',
