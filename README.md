@@ -4,7 +4,7 @@ Review webpack app , express + react + materialUI frame work. And save my skills
 
 
 ### 1.Before start should prepare
-Before we start, we should install packages for project, all those packages is the base contruction of app. Just run the follow order in your command line
+Before we start, we should install packages for project, all those packages is the base contruction of app. Just run the follow order in your command line
 ```
 npm install
 ```
