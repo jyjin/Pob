@@ -23,6 +23,7 @@ import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Routes from './routes'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import LoginContainer from './page/login/loginContainer'
 
@@ -46,6 +47,7 @@ export default class App extends Component {
         this.state = {
             value: 'welcome'
         };
+        // injectTapEventPlugin()
     }
 
     appBar() {
@@ -82,14 +84,14 @@ export default class App extends Component {
     main() {
         return <div style={{ height: 'calc( 100vh - 64px - 56px )' }}>
             {/* {Routes} */}
-            <Routes local={'zh-cn'}/>
+            <Routes local={'zh-cn'} />
         </div>
     }
 
     render() {
 
-        if(!this.state.user){
-            // return <LoginContainer/>
+        if (!this.state.user) {
+            return <LoginContainer/>
         }
 
 

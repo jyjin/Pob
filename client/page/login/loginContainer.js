@@ -21,9 +21,12 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import purple from '@material-ui/core/colors/purple';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 
-const styles = theme => ({
+const styles = theme => {
+    console.log('theme === ', theme)
+    return {
     root: {
         ...theme.mixins.gutters(),
         paddingTop: theme.spacing.unit * 20,
@@ -34,6 +37,9 @@ const styles = theme => ({
         height: '560px',
         background: 'none',
         flexGrow: 1,
+    },
+    toolbar: {
+        flexGrow: 2,
     },
     bg: {
         flexGrow: 1,
@@ -54,6 +60,9 @@ const styles = theme => ({
         margin: '20px 8px'
     },
     flex: {
+        display: 'flex',
+    },
+    flexGrow: {
         flexGrow: 1,
     },
     menuButton: {
@@ -74,7 +83,7 @@ const styles = theme => ({
         textAlign: 'center',
         color: purple[600]
     }
-});
+}}
 
 class LoginContainer extends Component {
 
@@ -86,13 +95,21 @@ class LoginContainer extends Component {
         }
     }
 
-    appBar() {
+    handleClick = () => {
+        alert(1)
+    }
+
+    handleTap_login() {
+        alert(1)
+    }
+
+    appBar(classes) {
         return <AppBar position="static">
-            <Toolbar>
-                <IconButton style={styles.menuButton} color="inherit" aria-label="Menu">
+            <Toolbar className={classes.flex}>
+                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="title" color="inherit" style={styles.flex}>Know me</Typography>
+                <Typography variant="title" color="inherit" className={classes.flexGrow}>Know me</Typography>
                 <Button color="inherit">Sign up</Button>
             </Toolbar>
         </AppBar>
@@ -102,9 +119,10 @@ class LoginContainer extends Component {
         const { classes } = this.props;
 
         return <div className={classes.bg}>
-            {this.appBar()}
+            {this.appBar(classes)}
             <div className={classes.root} elevation={1}>
                 <h1 className={classes.purple}>Sign in</h1>
+                <CssBaseline />
                 <TextField
                     required
                     id="username"
@@ -120,7 +138,9 @@ class LoginContainer extends Component {
                     className={classes.textField}
                     margin="normal"
                 />
-                <Button variant="contained" color="primary" className={classes.button}>
+                <Button variant="contained" color="primary" className={classes.button}
+                    onClick={this.handleClick}
+                >
                     Sign in for Pob
                  </Button>
             </div>
