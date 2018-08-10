@@ -21,6 +21,16 @@ module.exports = (app) => {
         })
     })
 
+    app.use('/getUser/:username', (req, res) => {
+        console.log('req.user === ', req.user)
+        res.send({
+            res: 1,
+            data: {
+                message: 'token 认证成功！'
+            }
+        })
+    });
+
     app.use('/jwt', jwtAuth, (req, res) => {
         console.log('req.user === ', req.user)
         res.send({

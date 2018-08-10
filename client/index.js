@@ -7,6 +7,9 @@ import app from './app'
 
 const history = createBrowserHistory()
 const App = withRoot(app)
+window.__verbose = console.log
+window.__error = console.error
+window.__warn = console.warn
 
 ReactDOM.render(
     <Router history={history}>

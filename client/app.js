@@ -24,8 +24,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Routes from './routes'
 import injectTapEventPlugin from 'react-tap-event-plugin'
-
 import LoginContainer from './page/login/loginContainer'
+import api from './lib/hapi'
 
 const styles = {
     root: {
@@ -48,6 +48,24 @@ export default class App extends Component {
             value: 'welcome'
         };
         // injectTapEventPlugin()
+    }
+
+    componentDidMount() {
+        this.beforeLoad()
+    }
+
+    beforeLoad() {
+        api.getToken().then(json => {
+            console.log(`==== getToken ====`, json)
+        })
+
+        api.getUser({ name: 'jyjin' }).then(json => {
+            console.log(`==== getUser ====`, json)
+        })
+
+        api.post({ name: 'jyjin', age: 18 }).then(json => {
+            console.log(`==== post ====`, json)
+        })
     }
 
     appBar() {
@@ -91,7 +109,7 @@ export default class App extends Component {
     render() {
 
         if (!this.state.user) {
-            return <LoginContainer/>
+            // return <LoginContainer/>
         }
 
 
