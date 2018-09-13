@@ -109,9 +109,8 @@ export default class App extends Component {
     render() {
 
         if (!this.state.user) {
-            // return <LoginContainer/>
+            return <LoginContainer/>
         }
-
 
         const child = <div >
             {this.appBar()}

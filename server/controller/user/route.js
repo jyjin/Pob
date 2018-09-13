@@ -1,45 +1,16 @@
 const user = require('./user')
-const jwt = require('jsonwebtoken')
+const log = require('../../middleware/log')
 const jwtAuth = require('../../middleware/jwtAuth')
-const { expiresIn, appTokenSecret } = require('../../config')
-
-const getToken = (data) => {
-    return jwt.sign(data, appTokenSecret, { expiresIn: expiresIn })
-}
+const accountAnalysis = require('../../middleware/accountAnalysis')
+const userRequire = require('../../middleware/userRequire')
 
 module.exports = (app) => {
-    app.use('/getToken', (req, res) => {
-        var data = {
-            userId: '0001',
-            username: 'jyjin'
-        }
-        return res.send({
-            res: 1,
-            data: {
-                token: getToken(data)
-            }
-        })
-    })
-
-    app.use('/getUser/:username', (req, res) => {
-        console.log('req.user === ', req.user)
-        res.send({
-            res: 1,
-            data: {
-                message: 'token 认证成功！'
-            }
-        })
-    });
-
-    app.use('/jwt', jwtAuth, (req, res) => {
-        console.log('req.user === ', req.user)
-        res.send({
-            res: 1,
-            data: {
-                message: 'token 认证成功！'
-            }
-        })
-    });
-
-    app.use('/user/getUserInfo', user.getUserInfo)
+    // 用户登录
+    app.post('/user/signIn', log, accountAnalysis, user.signIn)
+    // 根据用户名获取用户
+    app.get('/getUser/:username', log, jwtAuth, user.queryUserByUsername);
+    // 添加用户
+    app.post('/user/addUser', log, userRequire, user.addUser)
+    // 查询用户列表
+    app.use('/user/queryUserList', log, jwtAuth, user.queryUserList)
 }
