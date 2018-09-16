@@ -9,43 +9,33 @@
  */
 
 import React, { Component, Children } from 'react';
-
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Icon from '@material-ui/core/Icon';
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import ViewColumn from '@material-ui/icons/SentimentSatisfiedAlt';
+
 import Routes from './routes'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import LoginContainer from './page/login/loginContainer'
+import RegisterContainer from './page/login/registerContainer'
+import Loading from './page/component/loading'
+import AppBar from './page/appBar'
 import api from './lib/hapi'
+import appStyle from './style/app'
+import i18nModule from './i18n'
+import { withStyles } from '@material-ui/core';
+const styles = theme => appStyle
 
-const styles = {
-    root: {
-        flexGrow: 1,
-    },
-    flex: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginLeft: -12,
-        marginRight: 20,
-    },
-};
-
-export default class App extends Component {
+class App extends Component {
     constructor(props, context) {
         super(props, context);
 
         this.state = {
-            value: 'welcome'
+            appBarType: 1,                                  // 1 注册bar 2 登录bar 3 注销bar
+            local: localStorage.getItem('LOCAL') || 'cn',   // cn-中文 en-英文
         };
         // injectTapEventPlugin()
     }
@@ -54,30 +44,58 @@ export default class App extends Component {
         this.beforeLoad()
     }
 
+    setUser = user => {
+        this.setState({ user, appBarType: 1 })
+    }
+
+    setAppBarType = appBarType => {
+        this.setState({ appBarType })
+    }
+
     beforeLoad() {
-        api.getToken().then(json => {
-            console.log(`==== getToken ====`, json)
-        })
+        var token = sessionStorage.getItem('TOKEN') || ''
+        if (token) {
+            this.setState({ loading: true })
+            api.authByToken({ token }).then(json => {
+                if (json.res > 0) {
+                    this.setState({
+                        user: json.data.user,
+                        loading: false,
+                        appBarType: 3
+                    })
+                } else {
+                    console.warn(json.i18n.cn)
+                    this.setState({
+                        loading: false
+                    })
+                }
+            })
+        }
 
-        api.getUser({ name: 'jyjin' }).then(json => {
-            console.log(`==== getUser ====`, json)
-        })
+        this.setLocal()
+    }
 
-        api.post({ name: 'jyjin', age: 18 }).then(json => {
-            console.log(`==== post ====`, json)
-        })
+    setLocal = (local) => {
+        if (!local) {
+            local = localStorage.getItem('LOCAL') || 'cn'
+            localStorage.setItem('LOCAL', local)
+            this.setState({ local })
+        } else {
+            localStorage.setItem('LOCAL', local)
+            this.setState({ local })
+        }
     }
 
     appBar() {
-        return <AppBar position="static">
-            <Toolbar>
-                <IconButton style={styles.menuButton} color="inherit" aria-label="Menu">
-                    <MenuIcon />
-                </IconButton>
-                <Typography variant="title" color="inherit" style={styles.flex}>News</Typography>
-                <Button color="inherit">Login</Button>
-            </Toolbar>
-        </AppBar>
+        const { classes, ...other } = this.props;
+        return <AppBar
+            {...other}
+            i18n={i18nModule(this.state.local)}
+            appBarType={this.state.appBarType}
+            setType={this.setAppBarType}
+            setLocal={this.setLocal}
+            setUser={this.setUser}
+        />
     }
 
     handleChange(event, value) {
@@ -100,16 +118,46 @@ export default class App extends Component {
     }
 
     main() {
+        const { classes } = this.props
         return <div style={{ height: 'calc( 100vh - 64px - 56px )' }}>
-            {/* {Routes} */}
-            <Routes local={'zh-cn'} />
+            <div className={classes.background}><ViewColumn style={{ fontSize: 100 }}/></div>
+            <Routes
+                i18n={i18nModule(this.state.local)}
+            />
         </div>
     }
 
     render() {
 
+        // 加载动画
+        if (this.state.loading) {
+            return <Loading size={50} thickness={3} style={{
+                position: 'fixed',
+                width: '50px',
+                height: '50px',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-25px, -25px)',
+            }} />
+        }
+
+        // 登录注册
         if (!this.state.user) {
-            return <LoginContainer/>
+            if (this.state.appBarType == 1) {
+                return <LoginContainer
+                    {...this.state}
+                    i18n={i18nModule(this.state.local)}
+                    setLocal={this.setLocal}
+                    setType={this.setAppBarType}
+                    setUser={this.setUser} />
+            } else {
+                return <RegisterContainer
+                    {...this.state}
+                    i18n={i18nModule(this.state.local)}
+                    setLocal={this.setLocal}
+                    setType={this.setAppBarType}
+                    setUser={this.setUser} />
+            }
         }
 
         const child = <div >
@@ -120,3 +168,5 @@ export default class App extends Component {
         return child
     }
 }
+
+export default withStyles(styles)(App)

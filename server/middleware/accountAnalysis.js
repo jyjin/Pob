@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
     }
 
     // 用户名必须3-20为字符
-    if (!isLength(opt.account, { min: 3, max: 20 })) {
+    if (!isLength(opt.account, { min: 1, max: 20 })) {
         return res.send(AUTH_ACCOUNT_LENGTH_ILLEGAL)
     }
 

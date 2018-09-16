@@ -24,33 +24,25 @@
 const AJAX = require('./ajax')
 
 const API = [
-    {                                       // 测试 rest 接口                
-        name: `getUser`,
-        url: `/getUser/:name`,
-    },
-    {                                       // 测试 post 接口
-        name: `post`,
-        url: `/json`, 
+    {                                       // 登录           
+        name: `signIn`,
+        url: `/user/signIn`,
         isPost: true
     },
-    {                                       // 测试 get 接口
-        name: `getToken`,
-        url: `/getToken`,
+    {                                       // 添加用户
+        name: `signUp`,
+        url: `/user/signUp`,
+        isPost: true
     },
-    {                                       // 登录
+    {                                       // 查询用户列表
+        name: `queryUserList`,
+        url: `/user/queryUserList`,
+    },
+    {                                       // token认证
         name: `authByToken`,
-        url: `/authByToken`, 
-        isPost: true
+        url: `/user/authByToken/:token`,
     },
-    {                                       // 菜单树
-        name: `getMenuList`,
-        url: `/getMenuList`,
-    },
-    {                                       // 新增菜单
-        name: `addMenu`,
-        url: `/addMenu`, 
-        isPost: true
-    },
+
 ]
 
 module.exports = AJAX(API)

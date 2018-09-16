@@ -15,28 +15,28 @@ exports.addUser = (bean, callback) => {
 
 
 // 查询用户列表 admin除外
-exports.queryUserList = (callback) => {
-    User.find({ account: { $ne: 'admin' } }).exec(callback)
+exports.queryUserList = (callback, showPassword = 0) => {
+    User.find({ account: { $ne: 'admin' } }, !showPassword ? { password: showPassword } : {}).exec(callback)
 }
 
 // 查询用户 根据id
-exports.queryUser_byId = (id, callback) => {
-    User.findOne({ _id: id }).exec(callback)
+exports.queryUser_byId = (id, callback, showPassword = 0) => {
+    User.findOne({ _id: id }, !showPassword ? { password: showPassword } : {}).exec(callback)
 }
 
 // 查询用户 根据邮箱
-exports.queryUser_byEmail = (email, callback) => {
-    User.findOne({ email: email }).exec(callback)
+exports.queryUser_byEmail = (email, callback, showPassword = 0) => {
+    User.findOne({ email: email }, !showPassword ? { password: showPassword } : {}).exec(callback)
 }
 
 // 查询用户 根据手机号
-exports.queryUser_byPhone = (phone, callback) => {
-    User.findOne({ phone: phone }).exec(callback)
+exports.queryUser_byPhone = (phone, callback, showPassword = 0) => {
+    User.findOne({ phone: phone }, !showPassword ? { password: showPassword } : {}).exec(callback)
 }
 
 // 查询用户 根据用户名
-exports.queryUser_byUsername = (username, callback) => {
-    User.findOne({ username: username }).exec(callback)
+exports.queryUser_byUsername = (username, callback, showPassword = 0) => {
+    User.findOne({ username: username }, !showPassword ? { password: showPassword } : {}).exec(callback)
 }
 
 // 删除用户 根据id

@@ -27,7 +27,7 @@ const md5 = require('md5')
 
 const styles = theme => loginStyle
 
-class LoginContainer extends Component {
+class RegisterContainer extends Component {
 
 
     constructor(props, context) {
@@ -40,11 +40,10 @@ class LoginContainer extends Component {
     handleClick = () => {
         const data = this.state;
         data.password = md5(data.password)
-        api.signIn(data).then(json => {
+        api.signUp(data).then(json => {
             if (json.res > 0) {
                 sessionStorage.setItem('TOKEN', json.data.token)
-                this.props.setUser(json.data.user)
-                this.props.setType(3)
+                this.props.setType(1)
             } else {
                 alert(json.i18n.cn)
             }
@@ -58,15 +57,15 @@ class LoginContainer extends Component {
     loginPanel() {
         const { classes } = this.props;
         return <div className={classes.root} elevation={1}>
-            <h1 className={classes.purple}>Sign in</h1>
+            <h1 className={classes.purple}>Sign up</h1>
             <CssBaseline />
             <TextField
                 required
-                id="account"
-                label="account"
+                id="username"
+                label="username"
                 className={classes.textField}
                 margin="normal"
-                onChange={this.onChange('account')}
+                onChange={this.onChange('username')}
             />
             <TextField
                 required
@@ -77,10 +76,37 @@ class LoginContainer extends Component {
                 margin="normal"
                 onChange={this.onChange('password')}
             />
+            <TextField
+                required
+                id="passwordAgain"
+                type="password"
+                label="passwordAgain"
+                className={classes.textField}
+                margin="normal"
+                onChange={this.onChange('passwordAgain')}
+            />
+            <TextField
+                required
+                id="phone"
+                type="phone"
+                label="phone"
+                className={classes.textField}
+                margin="normal"
+                onChange={this.onChange('phone')}
+            />
+            <TextField
+                required
+                id="email"
+                type="email"
+                label="email"
+                className={classes.textField}
+                margin="normal"
+                onChange={this.onChange('email')}
+            />
             <Button variant="contained" color="primary" className={classes.button}
                 onClick={this.handleClick}
             >
-                Sign in for Pob
+                Sign up for Pob
          </Button>
         </div>
     }
@@ -100,4 +126,4 @@ class LoginContainer extends Component {
 
     }
 }
-export default withStyles(styles)(LoginContainer);
+export default withStyles(styles)(RegisterContainer);

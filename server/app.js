@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ limit: '5mb', extended: false }))
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST')
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization,x-access-token,x-access-lan')
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization,token,x-access-lan')
     res.setHeader('Access-Control-Allow-Credentials', true)
     if ('OPTIONS' === req.method) {
         res.sendStatus(200)

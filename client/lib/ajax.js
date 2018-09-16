@@ -28,8 +28,9 @@ const promisify = (fn, model) => {
 }
 
 const AJAX = (options, callback) => {
+    let token = sessionStorage.getItem('token') || ''
     let _config = {
-        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        headers: { 'X-Requested-With': 'XMLHttpRequest', token },
         timeout: config.timeout,
         baseURL: config.siteUrl,
         responseType: 'json',
@@ -65,7 +66,7 @@ const AJAX = (options, callback) => {
             } else if (error.request) {
                 __error(`[ ------------------------- Http request error ------------------------- ]`);
                 __error(`[ request ]`, error.request);
-                callback(` Http request error `, )
+                callback(` Http request error `)
             } else {
                 __error(`[ ------------------------- Http error ------------------------- ]`);
                 __error(`[ message ]`, error.message);
