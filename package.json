@@ -5,8 +5,10 @@
   "main": "webpack.config.js",
   "scripts": {
     "api": "supervisor -w ./server ./server/server.js ",
-    "dev": "webpack-dev-server --open --config webpack.dev.js --progress --color --port 6001",
+    "client": "webpack-dev-server --open --config webpack.dev.js --progress --color --port 6001",
     "build": "webpack --config webpack.prod.js",
+    "dev": "supervisor -w ./server ./server/server.js | webpack-dev-server --open --config webpack.dev.js --progress --color --port 6001",
+    "start": "cross-env NODE_ENV=PROD pm2 start --name='customer-service' customer-service.js --log-date-format='YYYY-MM-DD HH:mm:ss Z'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "jyjin",
@@ -25,6 +27,7 @@
     "babel-preset-stage-3": "^6.24.1",
     "body-parser": "^1.18.3",
     "clean-webpack-plugin": "^0.1.19",
+    "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "csv-loader": "^3.0.2",
     "file-loader": "^1.1.11",

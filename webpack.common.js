@@ -14,6 +14,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
+            title: 'Pob',
             template: "./public/index.html",
             filename: "./index.html"
         })
