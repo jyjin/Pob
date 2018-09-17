@@ -11,7 +11,7 @@ const app = express();
 const { handlebarsEngine } = require('./middleware/templateEngines')
 const { isLinux } = require('./lib/util')
 
-console.log('*start at ', __dirname)
+console.log('* start at ', __dirname)
 const __viewsPath = isLinux ?
     __dirname.replace('/server', '/view') :
     __dirname.replace('\\server', '\\view')

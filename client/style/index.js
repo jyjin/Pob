@@ -8,10 +8,13 @@
  *          统一由app.js withStyle集成传递到子组件
  */
 module.exports = (theme) => {
-    console.log('theme == ', theme)
+    // console.log('theme == ', theme)
     return ({
         // 通用定位属性
         fullWidth: {
+            width: '100%',
+        },
+        fullHeight: {
             width: '100%',
         },
         background: {
@@ -78,5 +81,25 @@ module.exports = (theme) => {
             width: '100%',
             margin: '20px 0px'
         },
+
+        main: {
+            position: 'relative',
+            height: 'calc( 100vh - 64px - 56px )',
+            overflow: 'auto',
+        },
+
+        chatContainer: {
+            height: 'calc(100vh - 56px - 56px - 100px)'
+        },
+        message: {
+            display: 'flex',
+            margin: '10px auto',
+            width: '80%',
+        },
+        send: {
+            display: 'flex',
+            margin: '0 auto',
+            width: '80%',
+        }
     })
 }

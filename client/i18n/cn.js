@@ -3,7 +3,7 @@ module.exports = {
     ZH: '中文',
     EN: 'EN',
     APP_NAME: '文德',
-    a: '',
+    SEND: '发送',
     a: '',
     a: '',
     a: '',

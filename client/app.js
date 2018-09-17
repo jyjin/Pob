@@ -27,6 +27,8 @@ import api from './lib/hapi'
 import styles from './style'
 import i18nModule from './i18n'
 import { withStyles } from '@material-ui/core';
+import io from 'socket.io-client'
+
 
 class App extends Component {
     constructor(props, context) {
@@ -41,6 +43,12 @@ class App extends Component {
 
     componentDidMount() {
         this.beforeLoad()
+        this.initSocket()
+    }
+
+    initSocket() {
+        var socket = io('http://127.0.0.1:5001')
+        window.socket = socket
     }
 
     setUser = user => {
@@ -118,9 +126,10 @@ class App extends Component {
 
     main() {
         const { classes } = this.props
-        return <div style={{ height: 'calc( 100vh - 64px - 56px )' }}>
+        return <div className={classes.main}>
             <div className={classes.background}><ViewColumn style={{ fontSize: 100 }} /></div>
             <Routes
+                {...this.props}
                 i18n={i18nModule(this.state.local)}
             />
         </div>

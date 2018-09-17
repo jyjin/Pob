@@ -3,5 +3,6 @@ module.exports = {
     ZH: '中文',
     EN: 'EN',
     APP_NAME: 'POB',
+    SEND: 'Send',
 
 }

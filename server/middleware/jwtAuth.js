@@ -38,11 +38,7 @@ module.exports = (req, res, next) => {
                 userId: decoded.userId,
                 username: decoded.username
             }
-
-            console.log('123')
             User.queryUser_byUsername(data.username, (err, result) => {
-                console.log('data == ', data)
-                console.log('result == ', result)
                 if (err) {
                     console.log('* query data error: ', err)
                     return res.send(AUTH_TOKEN_ERROR)

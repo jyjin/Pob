@@ -40,7 +40,7 @@ exports.signIn = (req, res) => {
         if (!result) {
             return res.send(LOGIN_ERROR)
         }
-        console.log('result: ', result)
+        // console.log('result: ', result)
         if (result.password === opt.password) {
             return res.send({
                 res: 1,

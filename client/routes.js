@@ -33,8 +33,8 @@ export default class Routes extends React.Component {
     }
 
     render() {
-        console.log('Route props1:', this.props)
-        return <div>
+        const {classes} = this.props
+        return <div className={classes.fullHeight}>
             <PropsRoute exact path='/' {...this.props} component={welcome} />
             <Route path='/render' render={() => { return <div>hello render</div> }} />
             <PropsRoute path='/welcome' {...this.props} component={welcome} />

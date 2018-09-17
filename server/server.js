@@ -6,10 +6,14 @@
 const { port } = require('./config')
 const http = require('http')
 const app = require('./app')
+const socket = require('./socket')
 
 app.set('port', port)
 
 const server = http.createServer(app)
+socket.init(server)
+
+
 server.listen(port)
 server.on('error', onError);
 server.on('listening', onListening);
