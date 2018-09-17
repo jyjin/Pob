@@ -9,25 +9,14 @@
  */
 
 import React, { Component, Children } from 'react';
-
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import api from '../../lib/hapi'
-import loginStyle from '../../style/login'
 import AppBar from '../appBar'
 const md5 = require('md5')
 
-const styles = theme => loginStyle
-
-class LoginContainer extends Component {
+export default class LoginContainer extends Component {
 
 
     constructor(props, context) {
@@ -57,14 +46,14 @@ class LoginContainer extends Component {
 
     loginPanel() {
         const { classes } = this.props;
-        return <div className={classes.root} elevation={1}>
-            <h1 className={classes.purple}>Sign in</h1>
+        return <div className={classes.loginPanel} elevation={1}>
+            <h1 className={classes.loginTitle}>Sign in</h1>
             <CssBaseline />
             <TextField
                 required
                 id="account"
                 label="account"
-                className={classes.textField}
+                className={classes.fullWidth}
                 margin="normal"
                 onChange={this.onChange('account')}
             />
@@ -73,11 +62,11 @@ class LoginContainer extends Component {
                 id="password"
                 type="password"
                 label="Password"
-                className={classes.textField}
+                className={classes.fullWidth}
                 margin="normal"
                 onChange={this.onChange('password')}
             />
-            <Button variant="contained" color="primary" className={classes.button}
+            <Button variant="contained" color="primary" className={classes.loginButton}
                 onClick={this.handleClick}
             >
                 Sign in for Pob
@@ -92,12 +81,10 @@ class LoginContainer extends Component {
 
     render() {
         const { classes, ...other } = this.props;
-        return <div className={classes.bg}>
-            <AppBar {...other} />
+        return <div className={classes.loginBackground}>
+            <AppBar {...this.props} />
             {this.loginPanel()}
             {this.footer()}
         </div>
-
     }
 }
-export default withStyles(styles)(LoginContainer);

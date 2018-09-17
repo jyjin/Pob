@@ -24,10 +24,9 @@ import RegisterContainer from './page/login/registerContainer'
 import Loading from './page/component/loading'
 import AppBar from './page/appBar'
 import api from './lib/hapi'
-import appStyle from './style/app'
+import styles from './style'
 import i18nModule from './i18n'
 import { withStyles } from '@material-ui/core';
-const styles = theme => appStyle
 
 class App extends Component {
     constructor(props, context) {
@@ -89,7 +88,7 @@ class App extends Component {
     appBar() {
         const { classes, ...other } = this.props;
         return <AppBar
-            {...other}
+            {...this.props}
             i18n={i18nModule(this.state.local)}
             appBarType={this.state.appBarType}
             setType={this.setAppBarType}
@@ -120,7 +119,7 @@ class App extends Component {
     main() {
         const { classes } = this.props
         return <div style={{ height: 'calc( 100vh - 64px - 56px )' }}>
-            <div className={classes.background}><ViewColumn style={{ fontSize: 100 }}/></div>
+            <div className={classes.background}><ViewColumn style={{ fontSize: 100 }} /></div>
             <Routes
                 i18n={i18nModule(this.state.local)}
             />
@@ -146,6 +145,7 @@ class App extends Component {
             if (this.state.appBarType == 1) {
                 return <LoginContainer
                     {...this.state}
+                    {...this.props}
                     i18n={i18nModule(this.state.local)}
                     setLocal={this.setLocal}
                     setType={this.setAppBarType}
@@ -153,6 +153,7 @@ class App extends Component {
             } else {
                 return <RegisterContainer
                     {...this.state}
+                    {...this.props}
                     i18n={i18nModule(this.state.local)}
                     setLocal={this.setLocal}
                     setType={this.setAppBarType}

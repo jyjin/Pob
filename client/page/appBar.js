@@ -6,11 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { withStyles } from '@material-ui/core';
-import appBarStyle from '../style/appBar'
 
-const styles = (appBarStyle)
-class MyAppBar extends React.Component {
+export default class MyAppBar extends React.Component {
 
     constructor(props, context) {
         super(props)
@@ -50,16 +47,13 @@ class MyAppBar extends React.Component {
         var local = localStorage.getItem('LOCAL') || 'cn'
         return <AppBar position="static">
             <Toolbar>
-                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                <IconButton className={classes.appBarMenuButton} color="inherit" aria-label="Menu">
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="title" color="inherit" className={classes.flex}>{this.props.i18n.APP_NAME}</Typography>
+                <Typography variant="title" color="inherit" className={classes.flexGrow}>{this.props.i18n.APP_NAME}</Typography>
                 <Button color="inherit" onClick={this.changeLanguage}>{local == 'cn' ? this.props.i18n.ZH : this.props.i18n.EN}</Button>
                 {this.getButton()}
             </Toolbar>
         </AppBar>
     }
-
 }
-
-export default withStyles(styles)(MyAppBar)

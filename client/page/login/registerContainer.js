@@ -9,25 +9,14 @@
  */
 
 import React, { Component, Children } from 'react';
-
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import api from '../../lib/hapi'
-import loginStyle from '../../style/login'
 import AppBar from '../appBar'
 const md5 = require('md5')
 
-const styles = theme => loginStyle
-
-class RegisterContainer extends Component {
+export default class RegisterContainer extends Component {
 
 
     constructor(props, context) {
@@ -56,14 +45,14 @@ class RegisterContainer extends Component {
 
     loginPanel() {
         const { classes } = this.props;
-        return <div className={classes.root} elevation={1}>
-            <h1 className={classes.purple}>Sign up</h1>
+        return <div className={classes.loginPanel} elevation={1}>
+            <h1 className={classes.loginTitle}>Sign up</h1>
             <CssBaseline />
             <TextField
                 required
                 id="username"
                 label="username"
-                className={classes.textField}
+                className={classes.fullWidth}
                 margin="normal"
                 onChange={this.onChange('username')}
             />
@@ -72,7 +61,7 @@ class RegisterContainer extends Component {
                 id="password"
                 type="password"
                 label="Password"
-                className={classes.textField}
+                className={classes.fullWidth}
                 margin="normal"
                 onChange={this.onChange('password')}
             />
@@ -81,7 +70,7 @@ class RegisterContainer extends Component {
                 id="passwordAgain"
                 type="password"
                 label="passwordAgain"
-                className={classes.textField}
+                className={classes.fullWidth}
                 margin="normal"
                 onChange={this.onChange('passwordAgain')}
             />
@@ -90,7 +79,7 @@ class RegisterContainer extends Component {
                 id="phone"
                 type="phone"
                 label="phone"
-                className={classes.textField}
+                className={classes.fullWidth}
                 margin="normal"
                 onChange={this.onChange('phone')}
             />
@@ -99,11 +88,11 @@ class RegisterContainer extends Component {
                 id="email"
                 type="email"
                 label="email"
-                className={classes.textField}
+                className={classes.fullWidth}
                 margin="normal"
                 onChange={this.onChange('email')}
             />
-            <Button variant="contained" color="primary" className={classes.button}
+            <Button variant="contained" color="primary" className={classes.loginButton}
                 onClick={this.handleClick}
             >
                 Sign up for Pob
@@ -118,12 +107,11 @@ class RegisterContainer extends Component {
 
     render() {
         const { classes, ...other } = this.props;
-        return <div className={classes.bg}>
-            <AppBar {...other} />
+        return <div className={classes.loginBackground}>
+            <AppBar {...this.props} />
             {this.loginPanel()}
             {this.footer()}
         </div>
 
     }
 }
-export default withStyles(styles)(RegisterContainer);
