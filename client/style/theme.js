@@ -63,5 +63,5 @@ const themeStyle = {
 }
 
 // 主题默认
-const defaultTheme = themeStyle.purple
+const defaultTheme = themeStyle.cyan
 module.exports = defaultTheme

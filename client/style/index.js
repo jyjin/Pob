@@ -8,15 +8,47 @@
  *          统一由app.js withStyle集成传递到子组件
  */
 module.exports = (theme) => {
-    // console.log('theme == ', theme)
+    console.log('theme == ', theme)
     return ({
         // 通用定位属性
+        fullScreen: {
+            width: '100%',
+            height: 'calc(100vh)',
+        },
         fullWidth: {
             width: '100%',
         },
         fullHeight: {
             width: '100%',
         },
+        width90: {
+            width: '90%',
+        },
+        width80: {
+            width: '80%',
+        },
+        width70: {
+            width: '70%',
+        },
+        width60: {
+            width: '60%',
+        },
+        width50: {
+            width: '50%',
+        },
+        width40: {
+            width: '40%',
+        },
+        width30: {
+            width: '30%',
+        },
+        width20: {
+            width: '20%',
+        },
+        width10: {
+            width: '10%',
+        },
+
         background: {
             position: 'absolute',
             color: '#eee',
@@ -25,16 +57,25 @@ module.exports = (theme) => {
             left: '50%',
             transform: 'translate(-50%, -50%)'
         },
-        flex: {
+        flexPure: {
             display: 'flex',
         },
+        flex: {
+            display: 'flex',
+            alignItems: 'center',
+        },
         flexGrow: {
+            flexGrow: 1,
+        },
+        flexGrow1: {
             flexGrow: 1,
         },
         flexGrow2: {
             flexGrow: 2,
         },
-
+        middle: {
+            margin: '0 auto',
+        },
         // 页头
         appBarMenuButton: {
             marginLeft: -12,
@@ -99,7 +140,6 @@ module.exports = (theme) => {
         send: {
             display: 'flex',
             margin: '0 auto',
-            width: '80%',
         }
     })
 }

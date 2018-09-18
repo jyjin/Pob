@@ -12,7 +12,7 @@ import React, { Component, Children } from 'react';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Icon from '@material-ui/core/Icon';
-import RestoreIcon from '@material-ui/icons/Restore';
+import Accessibility from '@material-ui/icons/AccountBalance';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import ViewColumn from '@material-ui/icons/SentimentSatisfiedAlt';
@@ -28,7 +28,6 @@ import styles from './style'
 import i18nModule from './i18n'
 import { withStyles } from '@material-ui/core';
 import io from 'socket.io-client'
-
 
 class App extends Component {
     constructor(props, context) {
@@ -47,7 +46,8 @@ class App extends Component {
     }
 
     initSocket() {
-        var socket = io('http://127.0.0.1:5001')
+        var token = sessionStorage.getItem('token') || ''
+        var socket = io(`http://127.0.0.1:5001?token=${token}`)
         window.socket = socket
     }
 
@@ -116,7 +116,7 @@ class App extends Component {
 
         return (
             <BottomNavigation value={value} onChange={this.handleChange.bind(this)}>
-                <BottomNavigationAction label="welcome" value="/welcome" icon={<RestoreIcon />} />
+                <BottomNavigationAction label="welcome" value="/welcome" icon={<Accessibility />} />
                 <BottomNavigationAction label="news" value="/news" icon={<FavoriteIcon />} />
                 <BottomNavigationAction label="news1" value="/news1" icon={<LocationOnIcon />} />
                 <BottomNavigationAction label="render" value="/render" icon={<Icon>folder</Icon>} />
@@ -130,6 +130,7 @@ class App extends Component {
             <div className={classes.background}><ViewColumn style={{ fontSize: 100 }} /></div>
             <Routes
                 {...this.props}
+                {...this.state}
                 i18n={i18nModule(this.state.local)}
             />
         </div>
