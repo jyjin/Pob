@@ -110,6 +110,11 @@ class App extends Component {
         this.props.history.push(value, { fromDashboard: true })
     };
 
+    onEnter(e, fun, scope, data) {
+        if (e.keyCode == 13) {
+            scope[fun](data)
+        }
+    }
 
     bottomNavigation() {
         const { value } = this.state || '/welcome';
@@ -131,6 +136,7 @@ class App extends Component {
             <Routes
                 {...this.props}
                 {...this.state}
+                onEnter={this.onEnter.bind(this)}
                 i18n={i18nModule(this.state.local)}
             />
         </div>

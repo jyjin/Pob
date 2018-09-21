@@ -4,7 +4,8 @@ function onSocketConnect(socket) {
     console.log('* ==> A user connected')
     socket.on('chatMessage', function (msg) {
         console.log('* msg == ', msg)
-        io.emit('chatMessage', 'welcome to chat');
+        console.log('* name == ', `chatMessage${msg.receiveUserId}`)
+        io.emit(`chatMessage${msg.receiveUserId}`, msg);
     });
 }
 

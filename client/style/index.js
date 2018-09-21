@@ -130,7 +130,17 @@ module.exports = (theme) => {
         },
 
         chatContainer: {
-            height: 'calc(100vh - 56px - 56px - 100px)'
+            height: 'calc(100vh - 56px - 56px - 100px)',
+            background: '#00a0e9'
+        },
+
+        chatText: {
+            margin: '10% 0 0',
+            textAlign: 'center',
+            color: '#fff',
+            fontSize: '20px',
+            fontWeight: 100,
+            padding: 0
         },
         message: {
             display: 'flex',
