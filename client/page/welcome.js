@@ -1,9 +1,11 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import classNames from 'classnames';
 import { MESSAGE } from '../lib/constant'
+import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 export default class welcome extends React.Component {
     constructor(props, context) {
@@ -12,7 +14,7 @@ export default class welcome extends React.Component {
     }
 
     componentDidMount() {
-        console.log('jyjin 111111111 == ', `chatMessage${this.props.user._id}`)
+        console.log('Receive event == ', `chatMessage${this.props.user._id}`)
         socket.on(`chatMessage${this.props.user._id}`, (msg) => {
             console.log('msg == ', msg)
             this.setState({
@@ -41,6 +43,9 @@ export default class welcome extends React.Component {
             content: content
         }
         socket.emit(`chatMessage`, msg);
+        this.setState({
+            message: ''
+        })
     }
 
     handleClick = () => {
@@ -50,26 +55,26 @@ export default class welcome extends React.Component {
     render() {
 
         const { classes } = this.props
-        return <Paper className={classes.fullScreen}>
+        return <div className={classNames(classes.fullScreen, classes.themeBackground)}>
             <div className={classes.chatContainer}>
                 <p className={classes.chatText}>{this.state.replyMessage}</p>
             </div>
             <div className={classNames(classes.flex, classes.width80, classes.middle)}>
-                <TextField
-                    id="message"
-                    label=""
-                    className={classNames(classes.message, classes.width60)}
-                    onChange={this.handleChange('message')}
-                    onKeyUp={(e) => this.props.onEnter(e, 'handleClick', this)}
-                    margin="normal"
-                />
-                <Button variant="contained" color="primary" className={classes.send}
+                    <Input
+                        id="message"
+                        label=""
+                        className={classNames(classes.message, classes.width60)}
+                        onChange={this.handleChange('message')}
+                        value={this.state.message}
+                        onKeyUp={(e) => this.props.onEnter(e, 'handleClick', this)}
+                        margin="normal"
+                    />
+                {/* <Button variant="contained" color="primary" className={classes.send}
                     onClick={this.handleClick}
                 >
                     {this.props.i18n.SEND}
-                </Button>
+                </Button> */}
             </div>
-
-        </Paper >
+        </div >
     }
 }

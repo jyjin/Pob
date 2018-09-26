@@ -18,10 +18,10 @@ module.exports = (req, res, next) => {
     }
     //定义 用token的api  对其验证
     var token = req.params.token || req.query.token || req.body.token || req.headers["token"]
-    __verbose('token === ', token)
+    __verbose('* token === ', token)
     jwt.verify(token, appTokenSecret, function (err, decoded) {
         if (err) {
-            __verbose('[ ERROR IN jwtAuth ] === ', err.name)
+            __verbose('* [ ERROR IN jwtAuth ] === ', err.name)
             // 返回错误信息
             if (err.name) {
                 if ('TokenExpiredError' == err.name) {

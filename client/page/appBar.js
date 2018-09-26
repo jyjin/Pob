@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import MenuIcon from '@material-ui/icons/Menu';
 
 export default class MyAppBar extends React.Component {
@@ -46,15 +47,23 @@ export default class MyAppBar extends React.Component {
     render() {
         const { classes } = this.props;
         var local = localStorage.getItem('LOCAL') || 'cn'
-        return <AppBar position="static">
-            <Toolbar>
-                <IconButton className={classes.appBarMenuButton} color="inherit" aria-label="Menu">
-                    <MenuIcon />
-                </IconButton>
-                <Typography variant="title" color="inherit" className={classes.flexGrow}>{this.props.i18n.APP_NAME}</Typography>
-                <Button color="inherit" onClick={this.changeLanguage}>{local == 'cn' ? this.props.i18n.ZH : this.props.i18n.EN}</Button>
-                {this.getButton()}
-            </Toolbar>
-        </AppBar>
+        return <SwipeableDrawer
+            anchor="top"
+            variant="persistent"
+            open={!!this.props.alwaysOpen || !!this.props.top}
+            onClose={() => { if (!!this.props.alwaysOpen) return; this.props.toggleDrawer('top', false) }}
+            onOpen={() => { if (!!this.props.alwaysOpen) return; this.props.toggleDrawer('top', true) }}
+        >
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton className={classes.appBarMenuButton} color="inherit" aria-label="Menu">
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="title" color="inherit" className={classes.flexGrow}>{this.props.i18n.APP_NAME}</Typography>
+                    <Button color="inherit" onClick={this.changeLanguage}>{local == 'cn' ? this.props.i18n.ZH : this.props.i18n.EN}</Button>
+                    {this.getButton()}
+                </Toolbar>
+            </AppBar>
+        </SwipeableDrawer>
     }
 }

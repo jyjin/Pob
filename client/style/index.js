@@ -19,7 +19,7 @@ module.exports = (theme) => {
             width: '100%',
         },
         fullHeight: {
-            width: '100%',
+            height: '100%',
         },
         width90: {
             width: '90%',
@@ -108,7 +108,7 @@ module.exports = (theme) => {
             top: 0, left: 0,
             width: '100%',
             height: '100%',
-            // background: theme.palette.primary.main
+            background: theme.palette.primary.contrastText
         },
         loginTitle: {
             display: 'inline-block',
@@ -125,27 +125,50 @@ module.exports = (theme) => {
 
         main: {
             position: 'relative',
-            height: 'calc( 100vh - 64px - 56px )',
+            // height: 'calc( 100vh - 64px - 56px )',
+            height: 'calc( 100vh )',
             overflow: 'auto',
         },
 
         chatContainer: {
-            height: 'calc(100vh - 56px - 56px - 100px)',
-            background: '#00a0e9'
+            height: 'calc(100vh - 60px)',
         },
-
+        themeBackground: {
+            background: theme.palette.primary.light
+        },
         chatText: {
-            margin: '10% 0 0',
+            position: 'relative',
+            top: '30%',
+            left: '50%',
+            margin: 0,
+            padding: 0,
             textAlign: 'center',
             color: '#fff',
             fontSize: '20px',
-            fontWeight: 100,
-            padding: 0
+            transform: 'translate(-50%, -50%)',
         },
         message: {
             display: 'flex',
-            margin: '10px auto',
-            width: '80%',
+            margin: '0 auto',
+            width: '90%',
+            color: theme.palette.primary.contrastText,
+            borderBottomColor: theme.palette.primary.contrastText,
+
+            '&:before': {
+                borderBottomColor: 'orange',
+            },
+            '&:after': {
+                borderBottomColor: theme.palette.primary.contrastText,
+            },
+            '&:hover': {
+                '& :before': {
+                    borderBottomColor: '#fff',
+                },
+                '& :after': {
+                    borderBottomColor: '#fff',
+                },
+                borderBottomColor: theme.palette.primary.contrastText,
+            },
         },
         send: {
             display: 'flex',

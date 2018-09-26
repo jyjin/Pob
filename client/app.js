@@ -16,6 +16,7 @@ import Accessibility from '@material-ui/icons/AccountBalance';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import ViewColumn from '@material-ui/icons/SentimentSatisfiedAlt';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
 import Routes from './routes'
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -28,6 +29,8 @@ import styles from './style'
 import i18nModule from './i18n'
 import { withStyles } from '@material-ui/core';
 import io from 'socket.io-client'
+
+var timeOutEvent = 0;
 
 class App extends Component {
     constructor(props, context) {
@@ -93,17 +96,14 @@ class App extends Component {
         }
     }
 
-    appBar() {
-        const { classes, ...other } = this.props;
-        return <AppBar
-            {...this.props}
-            i18n={i18nModule(this.state.local)}
-            appBarType={this.state.appBarType}
-            setType={this.setAppBarType}
-            setLocal={this.setLocal}
-            setUser={this.setUser}
-        />
-    }
+    toggleDrawer = (side, open) => {
+        console.log(side, open)
+        this.setState({
+            [side]: open,
+        });
+    };
+
+
 
     handleChange(event, value) {
         this.setState({ value });
@@ -116,23 +116,60 @@ class App extends Component {
         }
     }
 
-    bottomNavigation() {
-        const { value } = this.state || '/welcome';
+    longPress = () => {
+        timeOutEvent = 0;
+        console.log("长按事件触发");
+        this.toggleDrawer('top', !this.state.top)
+        this.toggleDrawer('bottom', !this.state.bottom)
+    }
 
-        return (
-            <BottomNavigation value={value} onChange={this.handleChange.bind(this)}>
-                <BottomNavigationAction label="welcome" value="/welcome" icon={<Accessibility />} />
-                <BottomNavigationAction label="news" value="/news" icon={<FavoriteIcon />} />
-                <BottomNavigationAction label="news1" value="/news1" icon={<LocationOnIcon />} />
-                <BottomNavigationAction label="render" value="/render" icon={<Icon>folder</Icon>} />
-            </BottomNavigation>
-        );
+    onTouchStart = (e) => {
+        console.log('==> touchStart')
+        timeOutEvent = setTimeout(this.longPress, 500);
+        // e.preventDefault();
+    }
+
+    onTouchMove = (e) => {
+        console.log('==> touchMove')
+        clearTimeout(timeOutEvent);
+        timeOutEvent = 0;
+    }
+
+    onTouchEnd = (e) => {
+        console.log('==> touchEnd')
+        clearTimeout(timeOutEvent);
+        if (timeOutEvent != 0) {
+            console.log("你这是点击，不是长按");
+        }
+        return false;
+    }
+
+    appBar() {
+        const { classes, ...other } = this.props;
+        return <AppBar
+            {...this.props}
+            {...this.state}
+            i18n={i18nModule(this.state.local)}
+            appBarType={this.state.appBarType}
+            setType={this.setAppBarType}
+            setLocal={this.setLocal}
+            setUser={this.setUser}
+            toggleDrawer={this.toggleDrawer}
+        />
     }
 
     main() {
         const { classes } = this.props
-        return <div className={classes.main}>
-            <div className={classes.background}><ViewColumn style={{ fontSize: 100 }} /></div>
+        return <div
+            className={classes.main}
+            onTouchStart={this.onTouchStart}
+            onTouchMove={this.onTouchMove}
+            onTouchEnd={this.onTouchEnd}
+            onMouseDown={this.onTouchStart}
+            onMouseMove={this.onTouchMove}
+            onMouseUp={this.onTouchEnd}
+        >
+            {/* <div className={classes.background}><ViewColumn style={{ fontSize: 100 }} /></div> */}
             <Routes
                 {...this.props}
                 {...this.state}
@@ -140,6 +177,27 @@ class App extends Component {
                 i18n={i18nModule(this.state.local)}
             />
         </div>
+    }
+
+    bottomNavigation() {
+        const { value } = this.state || '/welcome';
+
+        return (
+            <SwipeableDrawer
+                anchor="bottom"
+                variant="persistent"
+                open={!!this.state.bottom}
+                onClose={() => this.toggleDrawer('bottom', false)}
+                onOpen={() => this.toggleDrawer('bottom', true)}
+            >
+                <BottomNavigation value={value} onChange={this.handleChange.bind(this)}>
+                    <BottomNavigationAction label="welcome" value="/welcome" icon={<Accessibility />} />
+                    <BottomNavigationAction label="news" value="/news" icon={<FavoriteIcon />} />
+                    <BottomNavigationAction label="news1" value="/news1" icon={<LocationOnIcon />} />
+                    <BottomNavigationAction label="render" value="/render" icon={<Icon>folder</Icon>} />
+                </BottomNavigation>
+            </SwipeableDrawer>
+        );
     }
 
     render() {
@@ -162,7 +220,9 @@ class App extends Component {
                 return <LoginContainer
                     {...this.state}
                     {...this.props}
+                    alwaysOpen={true}
                     i18n={i18nModule(this.state.local)}
+                    toggleDrawer={this.toggleDrawer}
                     setLocal={this.setLocal}
                     setType={this.setAppBarType}
                     setUser={this.setUser} />
@@ -170,7 +230,9 @@ class App extends Component {
                 return <RegisterContainer
                     {...this.state}
                     {...this.props}
+                    alwaysOpen={true}
                     i18n={i18nModule(this.state.local)}
+                    toggleDrawer={this.toggleDrawer}
                     setLocal={this.setLocal}
                     setType={this.setAppBarType}
                     setUser={this.setUser} />
