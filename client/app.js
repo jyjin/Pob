@@ -29,6 +29,7 @@ import styles from './style'
 import i18nModule from './i18n'
 import { withStyles } from '@material-ui/core';
 import io from 'socket.io-client'
+const { siteUrl } = require('./lib/config')
 
 var timeOutEvent = 0;
 
@@ -50,7 +51,7 @@ class App extends Component {
 
     initSocket() {
         var token = sessionStorage.getItem('token') || ''
-        var socket = io(`http://127.0.0.1:5001?token=${token}`)
+        var socket = io(`${siteUrl}?token=${token}`)
         window.socket = socket
     }
 
