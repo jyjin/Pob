@@ -9,6 +9,6 @@
  */
 
  module.exports = {
-    siteUrl: 'http://127.0.0.1:5001',
+    siteUrl: 'http://192.168.128.48:5001',
     timeout: '5000'                     //ms
 }

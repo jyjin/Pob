@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "api": "supervisor -w ./server ./server/server.js ",
-    "client": "webpack-dev-server --open --config webpack.dev.js --progress --color --port 6001",
+    "client": "webpack-dev-server --open --config webpack.dev.js --progress --color --host 192.168.128.48 --port 6001",
     "build": "webpack --config webpack.prod.js",
     "dev": "supervisor -w ./server ./server/server.js | webpack-dev-server --open --config webpack.dev.js --progress --color --port 6001",
     "start": "cross-env NODE_ENV=PROD pm2 start --name='customer-service' customer-service.js --log-date-format='YYYY-MM-DD HH:mm:ss Z'",

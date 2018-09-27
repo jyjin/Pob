@@ -4,7 +4,8 @@ module.exports = {
     EN: 'EN',
     APP_NAME: '破吧',
     SEND: '发送',
-    a: '',
-    a: '',
-    a: '',
+    SIGN_TITLE: '欢迎使用',
+    SIGN_IN: '开始破吧',
+    ACCOUNT: '账号',
+    PASSWORD: '密码',
 }

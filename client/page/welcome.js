@@ -55,20 +55,25 @@ export default class welcome extends React.Component {
     render() {
 
         const { classes } = this.props
-        return <div className={classNames(classes.fullScreen, classes.themeBackground)}>
+        return <div className={classNames(classes.themeBackground, classes.fullHeight)}>
             <div className={classes.chatContainer}>
                 <p className={classes.chatText}>{this.state.replyMessage}</p>
+                {/* <div className={classes.parent}>
+                    <p>
+                        <span>测试css</span>
+                    </p>
+                </div> */}
             </div>
             <div className={classNames(classes.flex, classes.width80, classes.middle)}>
-                    <Input
-                        id="message"
-                        label=""
-                        className={classNames(classes.message, classes.width60)}
-                        onChange={this.handleChange('message')}
-                        value={this.state.message}
-                        onKeyUp={(e) => this.props.onEnter(e, 'handleClick', this)}
-                        margin="normal"
-                    />
+                <Input
+                    id="message"
+                    label=""
+                    margin='dense'
+                    className={classNames(classes.message, classes.width60)}
+                    onChange={this.handleChange('message')}
+                    value={this.state.message}
+                    onKeyUp={(e) => this.props.onEnter(e, 'handleClick', this)}
+                />
                 {/* <Button variant="contained" color="primary" className={classes.send}
                     onClick={this.handleClick}
                 >

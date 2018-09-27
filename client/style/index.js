@@ -64,6 +64,10 @@ module.exports = (theme) => {
             display: 'flex',
             alignItems: 'center',
         },
+        flexColumn: {
+            display: 'flex',
+            flexDirection: 'column'
+        },
         flexGrow: {
             flexGrow: 1,
         },
@@ -76,22 +80,48 @@ module.exports = (theme) => {
         middle: {
             margin: '0 auto',
         },
-        // 页头
+        //容器
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+        },
+        main: {
+            position: 'relative',
+            flexGrow: 1,
+        },
+        mainPannel: {
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            overflow: 'auto',
+        },
+        height0: {
+            height: '0px',
+        },
+        // app页头
+        header: {
+            height: '65px'
+        },
         appBarMenuButton: {
             marginLeft: -12,
             marginRight: 20,
         },
-        // 页脚
+        // app页脚
+        navigator: {
+            height: '57px'
+        },
         footer: {
+            position: 'fixed',
             background: theme.palette.primary.main,
             textAlign: 'center',
             fontSize: '12px',
-            position: 'fixed',
             bottom: 0,
             width: '100%',
             color: 'white',
         },
-
         // 登录、注册相关
         loginPanel: {
             width: '300px',
@@ -122,16 +152,8 @@ module.exports = (theme) => {
             width: '100%',
             margin: '20px 0px'
         },
-
-        main: {
-            position: 'relative',
-            // height: 'calc( 100vh - 64px - 56px )',
-            height: 'calc( 100vh )',
-            overflow: 'auto',
-        },
-
         chatContainer: {
-            height: 'calc(100vh - 60px)',
+            height: '90%',
         },
         themeBackground: {
             background: theme.palette.primary.light
@@ -144,7 +166,7 @@ module.exports = (theme) => {
             padding: 0,
             textAlign: 'center',
             color: '#fff',
-            fontSize: '20px',
+            fontSize: '30px',
             transform: 'translate(-50%, -50%)',
         },
         message: {
@@ -153,26 +175,65 @@ module.exports = (theme) => {
             width: '90%',
             color: theme.palette.primary.contrastText,
             borderBottomColor: theme.palette.primary.contrastText,
-
             '&:before': {
-                borderBottomColor: 'orange',
+                borderBottom: '2px solid white',
+                '&:hover': {
+                    borderBottomColor: '2px solid green'
+                }
             },
             '&:after': {
                 borderBottomColor: theme.palette.primary.contrastText,
             },
             '&:hover': {
-                '& :before': {
-                    borderBottomColor: '#fff',
-                },
-                '& :after': {
-                    borderBottomColor: '#fff',
-                },
-                borderBottomColor: theme.palette.primary.contrastText,
+                '&:before': {
+                    borderColor: 'white',
+                    borderBottom: '2px solid white'
+                }
             },
         },
         send: {
             display: 'flex',
             margin: '0 auto',
-        }
+        },
+        white: {
+            color: 'white',
+        },
+        // parent: {
+        //     border: '10px solid red',
+        //     height: '100px',
+        //     '& p': {
+        //         position: 'relative',
+        //         margin: 0,
+        //         padding: 0,
+        //         border: '10px solid green',
+        //         height: '100%',
+        //         '& span': {
+        //             border: '10px solid blue',
+        //         },
+
+        //         '&:hover': {
+        //             color: 'white',
+        //         },
+
+        //         '&:before': {
+        //             content: `''`,
+        //             position: 'relative',
+        //             border: '10px solid white',
+        //             width:'100%'
+        //         },
+
+        //     },
+        //     '&:hover': {
+        //         borderColor: 'orange',
+        //         '& p': {
+        //             borderColor: 'lightGreen',
+        //             '&:before':{
+        //                 borderColor: 'black'
+        //             }
+        //         },
+        //     }
+
+
+        // }
     })
 }

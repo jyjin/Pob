@@ -78,5 +78,5 @@ const themeStyle = {
 }
 
 // 主题默认
-const defaultTheme = themeStyle.lightBlue
+const defaultTheme = themeStyle.cyan
 module.exports = defaultTheme

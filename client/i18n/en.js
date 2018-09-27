@@ -4,5 +4,8 @@ module.exports = {
     EN: 'EN',
     APP_NAME: 'POB',
     SEND: 'Send',
-
+    SIGN_TITLE: 'Sign in',
+    SIGN_IN: 'Sign in for Pob',
+    ACCOUNT: 'Account',
+    PASSWORD: 'Password',
 }

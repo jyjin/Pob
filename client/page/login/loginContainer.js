@@ -34,6 +34,7 @@ export default class LoginContainer extends Component {
                 sessionStorage.setItem('TOKEN', json.data.token)
                 this.props.setUser(json.data.user)
                 this.props.setType(3)
+                this.props.history.push('/welcome', { fromDashboard: true })
             } else {
                 alert(json.i18n.cn)
             }
@@ -47,12 +48,12 @@ export default class LoginContainer extends Component {
     loginPanel() {
         const { classes } = this.props;
         return <div className={classes.loginPanel} elevation={1}>
-            <h1 className={classes.loginTitle}>Sign in</h1>
+            <h1 className={classes.loginTitle}>{this.props.i18n.SIGN_TITLE}</h1>
             <CssBaseline />
             <TextField
                 required
                 id="account"
-                label="account"
+                label={this.props.i18n.ACCOUNT}
                 className={classes.fullWidth}
                 margin="normal"
                 onChange={this.onChange('account')}
@@ -61,7 +62,7 @@ export default class LoginContainer extends Component {
                 required
                 id="password"
                 type="password"
-                label="Password"
+                label={this.props.i18n.PASSWORD}
                 className={classes.fullWidth}
                 margin="normal"
                 onChange={this.onChange('password')}
@@ -69,8 +70,8 @@ export default class LoginContainer extends Component {
             <Button variant="contained" color="primary" className={classes.loginButton}
                 onClick={this.handleClick}
             >
-                Sign in for Pob
-         </Button>
+                {this.props.i18n.SIGN_IN}
+            </Button>
         </div>
     }
 

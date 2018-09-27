@@ -48,6 +48,7 @@ app.use(function (req, res, next) {
 serverRoutes(app)
 
 app.use((req, res) => {
+    console.log('=> User visit website...')
     return res.render('../dist/index', {
         title: 'Pob',
         host: 'http://127.0.0.1:5001/'

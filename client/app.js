@@ -146,16 +146,19 @@ class App extends Component {
 
     appBar() {
         const { classes, ...other } = this.props;
-        return <AppBar
-            {...this.props}
-            {...this.state}
-            i18n={i18nModule(this.state.local)}
-            appBarType={this.state.appBarType}
-            setType={this.setAppBarType}
-            setLocal={this.setLocal}
-            setUser={this.setUser}
-            toggleDrawer={this.toggleDrawer}
-        />
+        var style = !!this.state.top ? classes.header : classes.height0
+        return <div className={style}>
+            <AppBar
+                {...this.props}
+                {...this.state}
+                i18n={i18nModule(this.state.local)}
+                appBarType={this.state.appBarType}
+                setType={this.setAppBarType}
+                setLocal={this.setLocal}
+                setUser={this.setUser}
+                toggleDrawer={this.toggleDrawer}
+            />
+        </div>
     }
 
     main() {
@@ -180,23 +183,32 @@ class App extends Component {
     }
 
     bottomNavigation() {
-        const { value } = this.state || '/welcome';
+        var { value } = this.state
+        if (!value) value = this.props.history
+            && this.props.history.location
+            && this.props.history.location.pathname
+            || ''
+
+        const { classes } = this.props
+        var style = !!this.state.bottom ? classes.navigator : classes.height0
 
         return (
-            <SwipeableDrawer
-                anchor="bottom"
-                variant="persistent"
-                open={!!this.state.bottom}
-                onClose={() => this.toggleDrawer('bottom', false)}
-                onOpen={() => this.toggleDrawer('bottom', true)}
-            >
-                <BottomNavigation value={value} onChange={this.handleChange.bind(this)}>
-                    <BottomNavigationAction label="welcome" value="/welcome" icon={<Accessibility />} />
-                    <BottomNavigationAction label="news" value="/news" icon={<FavoriteIcon />} />
-                    <BottomNavigationAction label="news1" value="/news1" icon={<LocationOnIcon />} />
-                    <BottomNavigationAction label="render" value="/render" icon={<Icon>folder</Icon>} />
-                </BottomNavigation>
-            </SwipeableDrawer>
+            <div className={style}>
+                <SwipeableDrawer
+                    anchor="bottom"
+                    variant="persistent"
+                    open={!!this.state.bottom}
+                    onClose={() => this.toggleDrawer('bottom', false)}
+                    onOpen={() => this.toggleDrawer('bottom', true)}
+                >
+                    <BottomNavigation value={value} onChange={this.handleChange.bind(this)}>
+                        <BottomNavigationAction label="welcome" value="/welcome" icon={<Accessibility />} />
+                        <BottomNavigationAction label="news" value="/news" icon={<FavoriteIcon />} />
+                        <BottomNavigationAction label="news1" value="/news1" icon={<LocationOnIcon />} />
+                        <BottomNavigationAction label="render" value="/render" icon={<Icon>folder</Icon>} />
+                    </BottomNavigation>
+                </SwipeableDrawer>
+            </div>
         );
     }
 
@@ -238,8 +250,9 @@ class App extends Component {
                     setUser={this.setUser} />
             }
         }
+        const { classes } = this.props;
 
-        const child = <div >
+        const child = <div className={classes.container}>
             {this.appBar()}
             {this.main()}
             {this.bottomNavigation()}
