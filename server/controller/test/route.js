@@ -22,7 +22,7 @@ module.exports = (app) => {
         })
     })
 
-    app.use('/json', (req, res) => {
+    app.post('/json', (req, res) => {
         return res.send({
             res: 1,
             data: {

@@ -16,7 +16,7 @@ import api from '../../lib/hapi'
 import AppBar from '../appBar'
 const md5 = require('md5')
 
-export default class LoginContainer extends Component {
+export default class RegisterContainer extends Component {
 
 
     constructor(props, context) {
@@ -29,12 +29,10 @@ export default class LoginContainer extends Component {
     handleClick = () => {
         const data = this.state;
         data.password = md5(data.password)
-        api.signIn(data).then(json => {
+        api.signUp(data).then(json => {
             if (json.res > 0) {
                 sessionStorage.setItem('TOKEN', json.data.token)
-                this.props.setUser(json.data.user)
-                this.props.setType(3)
-                this.props.history.push('/welcome', { fromDashboard: true })
+                this.props.setType(1)
             } else {
                 alert(json.i18n.cn)
             }
@@ -48,30 +46,57 @@ export default class LoginContainer extends Component {
     loginPanel() {
         const { classes } = this.props;
         return <div className={classes.loginPanel} elevation={1}>
-            <h1 className={classes.loginTitle}>{this.props.i18n.SIGN_TITLE}</h1>
+            <h1 className={classes.loginTitle}>Sign up</h1>
             <CssBaseline />
             <TextField
                 required
-                id="account"
-                label={this.props.i18n.ACCOUNT}
+                id="username"
+                label="username"
                 className={classes.fullWidth}
                 margin="normal"
-                onChange={this.onChange('account')}
+                onChange={this.onChange('username')}
             />
             <TextField
                 required
                 id="password"
                 type="password"
-                label={this.props.i18n.PASSWORD}
+                label="Password"
                 className={classes.fullWidth}
                 margin="normal"
                 onChange={this.onChange('password')}
             />
+            <TextField
+                required
+                id="passwordAgain"
+                type="password"
+                label="passwordAgain"
+                className={classes.fullWidth}
+                margin="normal"
+                onChange={this.onChange('passwordAgain')}
+            />
+            <TextField
+                required
+                id="phone"
+                type="phone"
+                label="phone"
+                className={classes.fullWidth}
+                margin="normal"
+                onChange={this.onChange('phone')}
+            />
+            <TextField
+                required
+                id="email"
+                type="email"
+                label="email"
+                className={classes.fullWidth}
+                margin="normal"
+                onChange={this.onChange('email')}
+            />
             <Button variant="contained" color="primary" className={classes.loginButton}
                 onClick={this.handleClick}
             >
-                {this.props.i18n.SIGN_IN}
-            </Button>
+                Sign up for Pob
+         </Button>
         </div>
     }
 
@@ -87,5 +112,6 @@ export default class LoginContainer extends Component {
             {this.loginPanel()}
             {this.footer()}
         </div>
+
     }
 }

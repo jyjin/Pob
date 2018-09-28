@@ -6,6 +6,6 @@
 
 module.exports = {
     port: 5001,                                 // 后台服务端口
-    expiresIn: 60,                              // token过期时长（秒/s）
+    expiresIn: 60 * 3600 * 2,                              // token过期时长（秒/s）
     appTokenSecret: 'jyjinsavetheworld',        // token验证密匙
 }

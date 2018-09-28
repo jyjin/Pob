@@ -7,6 +7,7 @@ import { Route } from 'react-router-dom'
 import newsContainer from './page/news/newsContainer'
 import newsContainer1 from './page/news/newsContainer.1'
 import newsContainer2 from './page/news/newsContainer.2'
+import classNames from 'classnames';
 import welcome from './page/welcome';
 
 
@@ -33,8 +34,9 @@ export default class Routes extends React.Component {
     }
 
     render() {
-        console.log('Route props1:', this.props)
-        return <div>
+        console.log('this.props jyjin == ', this.props)
+        const { classes } = this.props
+        return <div className={classNames(classes.mainPannel)}>
             <PropsRoute exact path='/' {...this.props} component={welcome} />
             <Route path='/render' render={() => { return <div>hello render</div> }} />
             <PropsRoute path='/welcome' {...this.props} component={welcome} />

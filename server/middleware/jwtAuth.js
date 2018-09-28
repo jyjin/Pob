@@ -8,7 +8,8 @@
  */
 const jwt = require('jsonwebtoken')
 const { appTokenSecret } = require('../config')
-const { AUTH_TOKEN_ERROR, AUTH_TOKEN_EXPIRED } = require('../lib/constant')
+const { AUTH_TOKEN_ERROR, AUTH_TOKEN_EXPIRED, LOGIN_ERROR } = require('../lib/constant')
+const User = require('../proxy/user')
 
 module.exports = (req, res, next) => {
     // 定义 不用token 的api
@@ -16,11 +17,11 @@ module.exports = (req, res, next) => {
         return next();
     }
     //定义 用token的api  对其验证
-    var token = req.body.token || req.query.token || req.headers["token"]
-    __verbose('token === ', token)
+    var token = req.params.token || req.query.token || req.body.token || req.headers["token"]
+    __verbose('* token === ', token)
     jwt.verify(token, appTokenSecret, function (err, decoded) {
         if (err) {
-            __verbose('[ ERROR IN jwtAuth ] === ', err.name)
+            __verbose('* [ ERROR IN jwtAuth ] === ', err.name)
             // 返回错误信息
             if (err.name) {
                 if ('TokenExpiredError' == err.name) {
@@ -30,16 +31,29 @@ module.exports = (req, res, next) => {
                     return res.send(AUTH_TOKEN_ERROR)
                 }
             }
-            res.send(AUTH_TOKEN_ERROR)
-            return;
+            return res.send(AUTH_TOKEN_ERROR)
         } else {
             // 解析必要的数据（相应字段为定义token时的字段）
-            req.user = {
+            var data = {
                 userId: decoded.userId,
                 username: decoded.username
             }
-            // 跳出中间件
-            return next();
+            User.queryUser_byUsername(data.username, (err, result) => {
+                if (err) {
+                    console.log('* query data error: ', err)
+                    return res.send(AUTH_TOKEN_ERROR)
+                } else {
+                    if (!result) {
+                        return res.send(LOGIN_ERROR)
+                    }
+                    if (result._id.toString() === data.userId) {
+                        req.user = result
+                        return next()
+                    } else {
+                        return res.send(AUTH_TOKEN_ERROR)
+                    }
+                }
+            })
         }
     });
 }

@@ -6,10 +6,14 @@
 const { port } = require('./config')
 const http = require('http')
 const app = require('./app')
+const socket = require('./socket')
 
 app.set('port', port)
 
 const server = http.createServer(app)
+socket.init(server)
+
+
 server.listen(port)
 server.on('error', onError);
 server.on('listening', onListening);
@@ -44,6 +48,6 @@ function onListening() {
     var bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    console.log(`\n* listen on port ${bind}...\n\n`)
+    console.log(`\n* listen on port ${bind}...`)
 }
 

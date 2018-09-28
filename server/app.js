@@ -11,6 +11,7 @@ const app = express();
 const { handlebarsEngine } = require('./middleware/templateEngines')
 const { isLinux } = require('./lib/util')
 
+console.log('* start at ', __dirname)
 const __viewsPath = isLinux ?
     __dirname.replace('/server', '/view') :
     __dirname.replace('\\server', '\\view')
@@ -25,10 +26,15 @@ app.use(bodyParser.json({ type: 'application/*+json' }))
 app.use(bodyParser.json({ limit: '5mb' }))
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: false }))
 
+//静态资源访问
+app.use(express.static('dist'))
+app.use(express.static('public'))
+
+
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST')
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization,x-access-token,x-access-lan')
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization,token,x-access-lan')
     res.setHeader('Access-Control-Allow-Credentials', true)
     if ('OPTIONS' === req.method) {
         res.sendStatus(200)
@@ -40,5 +46,14 @@ app.use(function (req, res, next) {
 
 // interface api
 serverRoutes(app)
+
+app.use((req, res) => {
+    console.log('=> User visit website...')
+    return res.render('../dist/index', {
+        title: 'Pob',
+        host: 'http://127.0.0.1:5001/'
+    })
+})
+
 
 module.exports = app
