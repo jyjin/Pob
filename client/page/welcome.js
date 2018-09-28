@@ -44,7 +44,8 @@ export default class welcome extends React.Component {
         }
         socket.emit(`chatMessage`, msg);
         this.setState({
-            message: ''
+            message: '',
+            replyMessage: content
         })
     }
 

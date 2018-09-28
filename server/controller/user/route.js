@@ -15,4 +15,8 @@ module.exports = (app) => {
     app.post('/user/signUp', log, userRequire, user.addUser)
     // 查询用户列表
     app.use('/user/queryUserList', log, jwtAuth, user.queryUserList)
+    // 上线
+    app.use('/user/online', log, jwtAuth, user.online)
+    // 下线
+    app.use('/user/offline', log, jwtAuth, user.offline)
 }

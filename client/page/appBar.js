@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import MenuIcon from '@material-ui/icons/Menu';
+import api from '../lib/hapi'
 
 export default class MyAppBar extends React.Component {
 
@@ -26,8 +27,15 @@ export default class MyAppBar extends React.Component {
     }
 
     logOut = () => {
-        sessionStorage.removeItem('TOKEN')
-        this.props.setUser(null)
+        api.signOut({ id: this.props.user._id }).then(json => {
+            if (json.res > 0) {
+
+            } else {
+                console.log(json.i18n.cn)
+            }
+            sessionStorage.removeItem('TOKEN')
+            this.props.setUser(null)
+        })
     }
 
     changeLanguage = () => {

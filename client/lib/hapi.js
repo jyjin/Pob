@@ -29,6 +29,11 @@ const API = [
         url: `/user/signIn`,
         isPost: true
     },
+    {                                       // 登出           
+        name: `signOut`,
+        url: `/user/offline`,
+        isPost: true
+    },
     {                                       // 添加用户
         name: `signUp`,
         url: `/user/signUp`,

@@ -50,7 +50,7 @@ class App extends Component {
     }
 
     initSocket() {
-        var token = sessionStorage.getItem('token') || ''
+        var token = sessionStorage.getItem('TOKEN') || ''
         var socket = io(`${siteUrl}?token=${token}`)
         window.socket = socket
     }
