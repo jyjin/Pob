@@ -17,12 +17,17 @@ npm run api
 ### 3.Running client side
 Contributing to the app when you are involed in developing code, and want to programing the client page, you should run follow command.
 ```
-npm run dev
+npm run client
 ```
 ### 4.Build the project
 Release the app to production
 ```
 npm run build
+```
+### 5.Relase and online running
+Release the app to production
+```
+npm run start
 ```
 ### Remark
 
