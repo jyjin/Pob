@@ -29,4 +29,5 @@ module.exports = {
     email: { type: String, default: null },
     gender: { type: Number, default: null },
     status: { type: Number, default: 0 },
+    receiveUserId: { type: ObjectId, default: null }
 }

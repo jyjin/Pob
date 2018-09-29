@@ -8,4 +8,5 @@ module.exports = {
     SIGN_IN: '开始破吧',
     ACCOUNT: '账号',
     PASSWORD: '密码',
+    CLEAR:'清空',
 }

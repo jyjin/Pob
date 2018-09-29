@@ -19,6 +19,12 @@ exports.queryUserList = (callback, showPassword = 0) => {
     User.find({ account: { $ne: 'admin' } }, !showPassword ? { password: showPassword } : {}).exec(callback)
 }
 
+// 查询用户列表 根据指定条件
+exports.queryUserList_byQuery = (query, callback, showPassword = 0) => {
+    query.account = { $ne: 'admin' }
+    User.find(query, !showPassword ? { password: showPassword } : {}).exec(callback)
+}
+
 // 查询用户 根据id
 exports.queryUser_byId = (id, callback, showPassword = 0) => {
     User.findOne({ _id: id }, !showPassword ? { password: showPassword } : {}).exec(callback)

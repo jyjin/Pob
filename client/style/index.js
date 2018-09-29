@@ -173,6 +173,7 @@ module.exports = (theme) => {
             display: 'flex',
             margin: '0 auto',
             width: '90%',
+            height: '40px',
             color: theme.palette.primary.contrastText,
             borderBottomColor: theme.palette.primary.contrastText,
             '&:before': {
@@ -192,11 +193,20 @@ module.exports = (theme) => {
             },
         },
         send: {
-            display: 'flex',
-            margin: '0 auto',
+            marginLeft: '5px',
         },
         white: {
             color: 'white',
+        },
+        messageButtonWrap: {
+        },
+        messageButton: {
+            marginTop: '8px',
+            color: theme.palette.primary.contrastText,
+            cursor: 'pointer',
+            '&:hover': {
+                color: 'rgba(255,255,255, 0.6)',
+            }
         },
         // parent: {
         //     border: '10px solid red',

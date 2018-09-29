@@ -8,4 +8,5 @@ module.exports = {
     SIGN_IN: 'Sign in for Pob',
     ACCOUNT: 'Account',
     PASSWORD: 'Password',
+    CLEAR:'Clear',
 }

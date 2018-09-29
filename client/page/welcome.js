@@ -1,16 +1,28 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Input from '@material-ui/core/Input';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import Paper from '@material-ui/core/Paper';
 import classNames from 'classnames';
 import { MESSAGE } from '../lib/constant'
+import Clear from '@material-ui/icons/Clear';
+import Send from '@material-ui/icons/Send';
+import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 export default class welcome extends React.Component {
     constructor(props, context) {
         super(props, context)
-        this.state = {}
+        this.state = {
+            msg: {
+                emitUserId: this.props.user._id,
+                receiveUserId: null,
+                type: MESSAGE.TEXT,
+                content: ''
+            }
+        }
     }
 
     componentDidMount() {
@@ -18,30 +30,22 @@ export default class welcome extends React.Component {
         socket.on(`chatMessage${this.props.user._id}`, (msg) => {
             console.log('msg == ', msg)
             this.setState({
+                msg: msg,
                 replyMessage: msg.content
             })
         });
     }
 
     handleChange = name => event => {
-        // this.sendMsg(event.target.value)
         this.setState({ [name]: event.target.value })
     }
 
     sendMsg(content) {
-        var receiveUserId = ''
-        if (this.props.user._id == "5b9cbc8ed2707e656084f448") {
-            receiveUserId = "5ba4bd4dd034ac3204c4d022"
-        } else {
-            receiveUserId = "5b9cbc8ed2707e656084f448"
+        var { msg } = this.state
+        if (msg.receiveUserId == this.props.user._id) {
+            msg.receiveUserId = null
         }
-
-        var msg = {
-            emitUserId: this.props.user._id,
-            receiveUserId: receiveUserId,
-            type: MESSAGE.TEXT,
-            content: content
-        }
+        msg.content = content
         socket.emit(`chatMessage`, msg);
         this.setState({
             message: '',
@@ -51,6 +55,13 @@ export default class welcome extends React.Component {
 
     handleClick = () => {
         this.sendMsg(this.state.message)
+    }
+
+    handleClear = () => {
+        this.setState({
+            message: '',
+            replyMessage: ''
+        })
     }
 
     render() {
@@ -74,12 +85,24 @@ export default class welcome extends React.Component {
                     onChange={this.handleChange('message')}
                     value={this.state.message}
                     onKeyUp={(e) => this.props.onEnter(e, 'handleClick', this)}
+                    endAdornment={this.state.message ? <InputAdornment>
+                        <Tooltip title={this.props.i18n.CLEAR}>
+                            <Clear fontSize="small" className={classes.messageButton} onClick={this.handleClear} />
+                        </Tooltip>
+                        {/* <IconButton variant="fab" title={this.props.i18n.SEND} onClick={this.handleClick} className={classes.messageButton}>
+                            <Send fontSize="small" />
+                        </IconButton> */}
+                    </InputAdornment> : null}
+
                 />
-                {/* <Button variant="contained" color="primary" className={classes.send}
-                    onClick={this.handleClick}
-                >
-                    {this.props.i18n.SEND}
-                </Button> */}
+                {this.state.message ?
+                    <Tooltip title={this.props.i18n.SEND}>
+                        <Button variant="contained" color="primary" onClick={this.handleClick} className={classes.messageButtonWrap}>
+                            {this.props.i18n.SEND}
+                            <Send className={classes.send} />
+                        </Button>
+                    </Tooltip>
+                    : null}
             </div>
         </div >
     }
