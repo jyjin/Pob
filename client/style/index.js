@@ -48,6 +48,45 @@ module.exports = (theme) => {
         width10: {
             width: '10%',
         },
+        scroll: {
+            overflow: 'auto'
+        },
+        m20: {
+            margin: '20px',
+        },
+        mx20: {
+            margin: '0 20px',
+        },
+        my20: {
+            margin: '20px 0',
+        },
+        ml20: {
+            marginLeft: '20px',
+        },
+        mr20: {
+            marginRight: '20px',
+        },
+        p20: {
+            padding: '20px',
+        },
+        px20: {
+            padding: '0 20px',
+        },
+        py20: {
+            padding: '20px 0',
+        },
+        pl20: {
+            paddingLeft: '20px',
+        },
+        pr20: {
+            paddingRight: '20px',
+        },
+        disscroll: {
+            overflow: 'hidden',
+        },
+        tc: {
+            textAlign: 'center',
+        },
 
         background: {
             position: 'absolute',
@@ -153,7 +192,7 @@ module.exports = (theme) => {
             margin: '20px 0px'
         },
         chatContainer: {
-            height: '90%',
+            height: '84%',
         },
         themeBackground: {
             background: theme.palette.primary.light
@@ -171,8 +210,6 @@ module.exports = (theme) => {
         },
         message: {
             display: 'flex',
-            margin: '0 auto',
-            width: '90%',
             height: '40px',
             color: theme.palette.primary.contrastText,
             borderBottomColor: theme.palette.primary.contrastText,
@@ -208,6 +245,15 @@ module.exports = (theme) => {
                 color: 'rgba(255,255,255, 0.6)',
             }
         },
+        transprant: {
+            opacity: 0,
+        },
+        color: {
+            color: theme.palette.primary.contrastText,
+        },
+        popControl: {
+            backgroundColor: 'inherit',
+        }
         // parent: {
         //     border: '10px solid red',
         //     height: '100px',

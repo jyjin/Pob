@@ -119,28 +119,28 @@ class App extends Component {
 
     longPress = () => {
         timeOutEvent = 0;
-        console.log("长按事件触发");
+        // console.log("长按事件触发");
         this.toggleDrawer('top', !this.state.top)
         this.toggleDrawer('bottom', !this.state.bottom)
     }
 
     onTouchStart = (e) => {
-        console.log('==> touchStart')
+        // console.log('==> touchStart')
         timeOutEvent = setTimeout(this.longPress, 500);
         // e.preventDefault();
     }
 
     onTouchMove = (e) => {
-        console.log('==> touchMove')
+        // console.log('==> touchMove')
         clearTimeout(timeOutEvent);
         timeOutEvent = 0;
     }
 
     onTouchEnd = (e) => {
-        console.log('==> touchEnd')
+        // console.log('==> touchEnd')
         clearTimeout(timeOutEvent);
         if (timeOutEvent != 0) {
-            console.log("你这是点击，不是长按");
+            // console.log("你这是点击，不是长按");
         }
         return false;
     }

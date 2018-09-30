@@ -47,6 +47,16 @@ const API = [
         name: `authByToken`,
         url: `/user/authByToken/:token`,
     },
+    {                                       // 挂断
+        name: `hangupFriends`,
+        url: `/user/chatHangup`,
+        isPost: true
+    },
+    {                                       // 重新匹配
+        name: `changeFriends`,
+        url: `/user/chatSwitch`,
+        isPost: true
+    },
 
 ]
 

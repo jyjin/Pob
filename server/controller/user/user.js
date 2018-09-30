@@ -2,7 +2,8 @@ const User = require('../../proxy').User
 const md5 = require('md5')
 const jwt = require('jsonwebtoken')
 const { expiresIn, appTokenSecret } = require('../../config')
-const { DATA_GET_ERROR, DATA_SAVE_ERROR, DATA_UPDATE_ERROR, ONLINE_FAILED, AUTH_TOKEN_ERROR, LOGIN_ERROR } = require('../../lib/constant')
+const { DATA_GET_ERROR, DATA_SAVE_ERROR, DATA_UPDATE_ERROR, ONLINE_FAILED, AUTH_TOKEN_ERROR, LOGIN_ERROR, REQUIRE_SOME_PARAM } = require('../../lib/constant')
+const async = require('async')
 
 const getToken = (data) => {
     return jwt.sign(data, appTokenSecret, { expiresIn: expiresIn })
@@ -152,7 +153,7 @@ let setUserStatusCallback = (res, err, result) => {
 exports.online = (req, res) => {
     var id = req.body.id
     if (!id) {
-        return res.send(DATA_GET_ERROR)
+        return res.send(REQUIRE_SOME_PARAM('id'))
     }
     setUserStatus(id, 1, (err, result) => setUserStatusCallback(res, err, result))
 }
@@ -160,7 +161,49 @@ exports.online = (req, res) => {
 exports.offline = (req, res) => {
     var id = req.body.id
     if (!id) {
-        return res.send(DATA_GET_ERROR)
+        return res.send(REQUIRE_SOME_PARAM('id'))
     }
     setUserStatus(id, 0, (err, result) => setUserStatusCallback(res, err, result))
+}
+
+exports.chatHangup = (id) => {
+
+    if (!id) {
+        return callback(-1)
+    }
+
+    async.auto({
+        emitUser: (cb) => {
+            User.queryUser_byId(id, (err, result) => {
+                if (err) {
+                    return cb(err)
+                }
+                var { receiveUserId } = result
+                result.receiveUserId = null
+                result.save((errSave, resultSave) => {
+                    if (errSave) {
+                        return cb(errSave)
+                    }
+                    return cb(null, receiveUserId)
+                })
+            })
+        },
+        receiveUser: ['emitUser', (result, cb) => {
+            console.log('jyjin 111', result.emitUser)
+            var receiveUserId = result.emitUser
+            User.queryUser_byId(receiveUserId, (errRcUser, resultRcUser) => {
+                if (errRcUser) {
+                    return cb(errRcUser)
+                }
+                resultRcUser.receiveUserId = null
+                resultRcUser.save(cb)
+            })
+        }]
+    }, (err, result) => {
+        if (err) {
+            return callback(-1)
+        }
+        return callback(null, result)
+    })
+
 }
