@@ -166,7 +166,7 @@ exports.offline = (req, res) => {
     setUserStatus(id, 0, (err, result) => setUserStatusCallback(res, err, result))
 }
 
-exports.chatHangup = (id) => {
+exports.chatHangup = (id, callback) => {
 
     if (!id) {
         return callback(-1)
@@ -189,15 +189,18 @@ exports.chatHangup = (id) => {
             })
         },
         receiveUser: ['emitUser', (result, cb) => {
-            console.log('jyjin 111', result.emitUser)
             var receiveUserId = result.emitUser
-            User.queryUser_byId(receiveUserId, (errRcUser, resultRcUser) => {
-                if (errRcUser) {
-                    return cb(errRcUser)
-                }
-                resultRcUser.receiveUserId = null
-                resultRcUser.save(cb)
-            })
+            if (receiveUserId) {
+                User.queryUser_byId(receiveUserId, (errRcUser, resultRcUser) => {
+                    if (errRcUser) {
+                        return cb(errRcUser)
+                    }
+                    resultRcUser.receiveUserId = null
+                    resultRcUser.save(cb)
+                })
+            } else {
+                cb(null, null)
+            }
         }]
     }, (err, result) => {
         if (err) {

@@ -89,11 +89,13 @@ function hangupFriend(emitUserId, callback) {
             }
             text = '结束失败'
             sendMessage(emitUserId, text) //这里可能丢失 接受者 需要完善
-        } else {
+        } else{
             text = ''
-            var { _id: receiveUserId } = result.receiveUser
-            sendMessage(emitUserId, '已结束当前会话', receiveUserId)
-            sendMessage(receiveUserId, '对方与你解除了会话', emitUserId)
+            if(result.receiveUser){
+                var { _id: receiveUserId } = result.receiveUser
+                sendMessage(emitUserId, '已结束当前会话', receiveUserId)
+                sendMessage(receiveUserId, '对方与你解除了会话', emitUserId)
+            }
         }
     })
 }
@@ -102,7 +104,7 @@ function onSocketConnect(socket) {
     console.log('* ==> A user connected [ ' + socket.handshake.address.replace('::ffff:', '') + ' ]')
 
     socket.on('chatMessage', function (msg) {
-        console.log('* msg == ', msg)
+        console.log('* msg[chatMessage] == ', msg)
 
         // 没有接受者 则分配
         if (!msg.receiveUserId) {
@@ -116,6 +118,8 @@ function onSocketConnect(socket) {
     });
 
     socket.on('actionMessage', function (msg) {
+        console.log('* msg[actionMessage] == ', msg)
+
         var { emitUserId } = msg
         // 退出
         if (msg.type == ACTION.QUIT) {

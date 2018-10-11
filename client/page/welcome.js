@@ -68,11 +68,11 @@ export default class welcome extends React.Component {
     }
 
     sendMsg(content) {
-        var { emitUserId, receiveUserId } = this.state
+        var { receiveUserId } = this.state
         if (receiveUserId == this.props.user._id) {
             receiveUserId = null
         }
-        var msg = Message(emitUserId, receiveUserId, MESSAGE.TEXT, content)
+        var msg = Message(this.props.user._id, receiveUserId, MESSAGE.TEXT, content)
         socket.emit(`chatMessage`, msg);
         this.setState({
             message: '',
