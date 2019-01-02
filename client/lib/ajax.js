@@ -28,7 +28,7 @@ const promisify = (fn, model) => {
 }
 
 const AJAX = (options, callback) => {
-    let token = sessionStorage.getItem('token') || ''
+    let token = sessionStorage.getItem('TOKEN') || ''
     let _config = {
         headers: { 'X-Requested-With': 'XMLHttpRequest', token },
         timeout: config.timeout,
